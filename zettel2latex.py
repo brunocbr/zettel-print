@@ -7,9 +7,7 @@
 import re
 from glob import glob
 from collections import OrderedDict
-import os, time, sys, getopt
-import hashlib
-import subprocess
+import os, sys
 
 KEY_CITEKEY = 'citekey'
 KEY_LOCATION = 'loc'
