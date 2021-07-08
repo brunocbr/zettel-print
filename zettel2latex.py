@@ -39,10 +39,12 @@ rx_dict = OrderedDict([
     ('hashtag', re.compile(r'#(?P<tag>[0-9A-Za-z./_&øφƒβπ]+)\b', re.UNICODE)),
     ('symtherefore', re.compile(r'∴', re.UNICODE)),
     ('symbecause', re.compile(r'∵', re.UNICODE)),
-    ('symsubone', re.compile(r'₁', re.UNICODE)),
-    ('symsubtwo', re.compile(r'₂', re.UNICODE)),
     ('symmindmap', re.compile(r'🧠', re.UNICODE)),
-    ('symideaspace', re.compile(r'💡', re.UNICODE))
+    ('symideaspace', re.compile(r'💡', re.UNICODE)),
+    ('symforall', re.compile(r'∀', re.UNICODE)),
+    ('symexists', re.compile(r'∃', re.UNICODE)),
+    ('symrightarrow', re.compile(r'→', re.UNICODE)),
+    ('symsupset', re.compile(r'⊃', re.UNICODE))
 ])
 
 
@@ -212,8 +214,11 @@ def parse_zettel(zettel_id):
             link = match.group('id')
             left_chunk = rx_dict[key].sub('@' + _pandoc_citetext(link) + ' \\\\zettelref{' + link + '}', left_chunk)
 
-        if key in [ 'symbecause', 'symtherefore', 'symsub1', 'symsub2', 'symmindmap', 'symideaspace' ]:
-            left_chunk = rx_dict[key].sub('\\\\' + key, left_chunk)
+        if key.startswith('sym'):
+            if key in [ 'symforall', 'symexists', 'symrightarrow', 'symsupset' ]:
+                left_chunk = rx_dict[key].sub('\\\\' + key + ' ', left_chunk)
+            else:
+                left_chunk = rx_dict[key].sub('\\\\' + key, left_chunk)
 
         if key == 'hashtag':
             tag = match.group('tag')

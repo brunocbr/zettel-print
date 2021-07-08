@@ -169,16 +169,18 @@ $endif$
 \newcommand{\zettelref}[1]{\texttt{[#1]}}
 \newcommand{\loc}[1]{\texttt{[#1]}}
 \newcommand{\conject}[1]{\ensuremath{\langle}#1\ensuremath{\rangle}}
+\newcommand{\hashtag}[1]{\texttt{\##1}}
 
 \newcommand{\because}{porque }
 \newcommand{\therefore}{portanto }
 \newcommand{\symbecause}{porque }
 \newcommand{\symtherefore}{portanto }
-\newcommand{\symsubone}{\textsubscript{1}}
-\newcommand{\symsubtwo}{\textsubscript{2}}
 \newcommand{\symmindmap}{\texttt{[MindMap]}}
 \newcommand{\symideaspace}{\texttt{[IdeaSpace]}}
-\newcommand{\hashtag}[1]{\texttt{\##1}}
+\newcommand{\symforall}{\ensuremath{\forall}}
+\newcommand{\symexists}{\ensuremath{\exists}}
+\newcommand{\symsupset}{\ensuremath{\subset}}
+\newcommand{\symrightarrow}{\ensuremath{\rightarrow}}
 
 \renewcommand{\textbf}[1]{\textsc{#1}}
 % \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
