@@ -1,0 +1,225 @@
+\documentclass[$if(biblatex)$nobib,$endif$b5paper,justified,oneside,a4paper,openany]{tufte-book}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+%\geometry{
+%  left=30.0mm, % left margin
+%  textwidth=110mm, % main text block
+%  marginparsep=8.2mm, % gutter between main text block and margin notes
+%  marginparwidth=36.4mm % width of margin notes
+%}
+
+%% ver opções da classe se for necessário ajustar a partir do tamanho B5
+
+$if(lang)$
+\ifxetex
+  \usepackage{polyglossia}
+ % \setmainlanguage[babelshorthands=true]{$lang$}
+  \setmainlanguage{brazil}
+  \setotherlanguages{german,english,french,greek,italian}
+  \setkeys{greek}{variant=ancient}
+  \setotherlanguage{greek}
+\else
+  \usepackage[shorthands=off,$lang$]{babel}
+\fi
+$endif$
+
+\usepackage{fontspec}
+\usepackage{xltxtra,xunicode}
+
+\defaultfontfeatures{Mapping=tex-text} % 
+\newcommand{\euro}{€}
+
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+    \newfontfamily\greekfont[Script=Greek]{$mainfont$}
+$endif$
+$if(italicfont)$
+    \setmainfont[ItalicFont=$italicfont$]{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+    \newfontfamily\greekfontsf[Script=Greek]{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont[Mapping=tex-ansi]{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont(Digits,Latin,Greek){$mathfont$}
+$endif$
+
+ % Set up the spacing using fontspec features - https://github.com/Tufte-LaTeX/tufte-latex/issues/64
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+
+\usepackage{amsmath}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\author[Bruno Conte]{Bruno Conte}
+\publisher{Private}
+
+$if(title)$
+\title{$title$}
+$else$
+\title{Caderno de Notas}
+$endif$
+
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(graphicspath)$
+\graphicspath{"$graphicspath$"}
+$endif$
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\small}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[style=abnt,
+  bibstyle=abnt,
+  sortlocale=pt_BR,
+  url=true, 
+  doi=true,
+  isbn=false,
+  eprint=false,
+  autocite=footnote, % substituindo funcionalidade do tufte-handout
+  style=verbose,
+  backend=biber]{biblatex}
+$if(biblio-files)$
+\addbibresource{$biblio-files$}
+$endif$
+$endif$
+
+
+
+% \DeclareUnicodeCharacter{2767}{\RotatedFloralHeart}
+
+\def\thezettel{}
+\newcommand*\setzettel[1]{\def\thezettel{#1}}
+
+\setzettel{$zettel_id$}
+
+\newcommand{\headseparator}{●}
+
+
+\fancyhf{} % clear header and footer fields
+
+
+\ifthenelse{\boolean{@tufte@twoside}}
+  {\fancyhead[LE]{\texttt{\thezettel}\quad\smallcaps{\newlinetospace{\leftmark}}}%
+    \fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}\quad\texttt{\thezettel}}}
+  {\fancyhead[RE,RO]{\smallcaps{\newlinetospace{\leftmark}}\quad\texttt{\thezettel}}%
+  \fancyfoot[C]{\ifthenelse{\value{page}=1}{}{\thepage}}}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeLowercase{%
+  \ifnum\c@secnumdepth > \m@ne \@chapapp\ \protect\resizebox{!}{1.15ex}{\thechapter}.\ \fi #1}}{}}
+
+% The `plain' page style is used on chapter opening pages.
+\fancypagestyle{plain}{
+  \fancyhf{} % clear header and footer fields
+  \ifthenelse{\boolean{@tufte@twoside}}
+    {\fancyhead[LE,RO]{\texttt{\thezettel}}}
+    {\fancyhead[RE,RO]{\texttt{\thezettel}}}
+}
+
+\titleformat{\chapter}%
+  [display]% shape
+  {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+  {\itshape\LARGE\thechapter}% label
+  {0pt}% horizontal separation between label and title body
+  {\LARGE\rmfamily\itshape}% before the title body
+  [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
+
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+\makeatletter
+\let\oldchapter\chapter
+\renewcommand{\chapter}[1]{\oldchapter{#1}
+\setcounter{page}{1}}
+\makeatother
+
+\makeatletter\@addtoreset{footnote}{page}\makeatother
+
+\newcommand{\zettelref}[1]{\texttt{[#1]}}
+\newcommand{\loc}[1]{\texttt{[#1]}}
+\newcommand{\conject}[1]{\ensuremath{\langle}#1\ensuremath{\rangle}}
+
+\newcommand{\because}{porque }
+\newcommand{\therefore}{portanto }
+\newcommand{\symbecause}{porque }
+\newcommand{\symtherefore}{portanto }
+\newcommand{\symsubone}{\textsubscript{1}}
+\newcommand{\symsubtwo}{\textsubscript{2}}
+\newcommand{\symmindmap}{\texttt{[MindMap]}}
+\newcommand{\symideaspace}{\texttt{[IdeaSpace]}}
+\newcommand{\hashtag}[1]{\texttt{\##1}}
+
+\renewcommand{\textbf}[1]{\textsc{#1}}
+% \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\begin{document}
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+
+$body$
+
+$if(natbib)$
+$if(biblio-files)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\nobibliography{$biblio-files$}
+
+$endif$
+$endif$
+
+$if(biblatex)$
+$if(biblio-files)$
+% \bibhang=1.2cm
+% \printbibliography$if(biblio-title)$[title=$biblio-title$,heading=handoutstyle]$endif$$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+
+
+\end{document}
