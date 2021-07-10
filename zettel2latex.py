@@ -15,7 +15,7 @@ KEY_LOCATION = 'loc'
 ZETTEL_DIR = os.environ['PHI_ARCHIVE']
 
 OPT = {
-    'book-mode': True # If true, output all notes in one single file
+    'book-mode': True # If true, output notes in chapters (H1); intended for appending notes to one single file
     }
 
 rx_dict = OrderedDict([
