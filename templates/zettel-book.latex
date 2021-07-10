@@ -1,4 +1,4 @@
-\documentclass[$if(biblatex)$nobib,$endif$b5paper,justified,oneside,a4paper,openany]{tufte-book}
+\documentclass[$if(biblatex)$nobib,$endif$b5paper,justified,oneside,openany]{tufte-book}
 
 %\geometry{showframe}% for debugging purposes -- displays the margins
 %\geometry{
@@ -123,10 +123,6 @@ $endif$
 
 \def\thezettel{}
 \newcommand*\setzettel[1]{\def\thezettel{#1}}
-
-\setzettel{$zettel_id$}
-
-\newcommand{\headseparator}{●}
 
 
 \fancyhf{} % clear header and footer fields
