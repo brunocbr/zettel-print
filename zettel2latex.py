@@ -12,7 +12,6 @@ import os, sys
 KEY_CITEKEY = 'citekey'
 KEY_LOCATION = 'loc'
 
-CF_PANDOC ='/usr/local/bin/pandoc'
 ZETTEL_DIR = os.environ['PHI_ARCHIVE']
 
 OPT = {
@@ -63,18 +62,6 @@ def _parse_line(line, thedict):
         if match:
             return key, match, match.end()
     return None, None, None
-
-def _remove_md_quotes(line):
-    rx = re.compile(r'^\s*>\s*')
-    match = rx.search(line)
-    if match:
-        line = rx.sub("", line)
-    return line
-
-def _md_quote(line):
-    line = _remove_md_quotes(line)
-    line = '> ' + line
-    return line
 
 def _z_get_filepath(zettel_id):
     """
