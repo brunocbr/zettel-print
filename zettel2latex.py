@@ -7,7 +7,7 @@
 import re
 from glob import glob
 from collections import OrderedDict
-import os, sys
+import os, sys, getopt
 
 KEY_CITEKEY = 'citekey'
 KEY_LOCATION = 'loc'
@@ -278,10 +278,13 @@ def parse_zettel(zettel_id):
 
     return data
 
+useroptions, theargs = getopt.getopt(sys.argv[1:], 's', [ 'stand-alone' ])
 
-thezettel = sys.argv[1]
+for opt, arg in useroptions:
+    if opt in ('-s', '--stand-alone'):
+        OPT['book-mode'] = False
 
-d = parse_zettel(thezettel)
+d = parse_zettel(theargs[0])
 
 for l in d:
     sys.stdout.write("%s\n" % l)
