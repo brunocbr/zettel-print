@@ -1,4 +1,16 @@
-\documentclass[$if(biblatex)$nobib,$endif$b5paper,justified,oneside,openany]{tufte-book}
+\documentclass[$if(biblatex)$nobib,$endif$a4paper,justified,oneside,openany]{tufte-book}
+
+% o tamanho ideal é b5paper
+
+%% %% A5
+%% \usepackage[a5paper]{geometry}
+%% % (102,66+36,44*2+7,33)
+%% % adaptado da classe para A5
+%% \geometry{paperwidth=142mm,paperheight=203mm,left=14.66mm,top=11.24mm,textwidth=83.15mm,marginparsep=5.93mm,marginparwidth=29.69mm,textheight=31\baselineskip,includehead}
+
+% B5 182 x 257 mm
+% \special{papersize=148mm,210mm} % it is A5 paper size, I got from Wikipedia.
+
 
 %\geometry{showframe}% for debugging purposes -- displays the margins
 %\geometry{
