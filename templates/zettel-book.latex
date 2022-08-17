@@ -1,10 +1,9 @@
-\documentclass[$if(biblatex)$nobib,$endif$a4paper,justified,oneside,openany]{tufte-book}
+\documentclass[$if(biblatex)$nobib,$endif$b5paper,justified,oneside,openany]{tufte-book}
 
-% o tamanho ideal é b5paper
+% o tamanho ideal é b5paper; a classe prevê a4paper, mas não a5.
 
 %% %% A5
 %% \usepackage[a5paper]{geometry}
-%% % (102,66+36,44*2+7,33)
 %% % adaptado da classe para A5
 %% \geometry{paperwidth=142mm,paperheight=203mm,left=14.66mm,top=11.24mm,textwidth=83.15mm,marginparsep=5.93mm,marginparwidth=29.69mm,textheight=31\baselineskip,includehead}
 
@@ -144,7 +143,8 @@ $endif$
   {\fancyhead[LE]{\texttt{\thezettel}\quad\smallcaps{\newlinetospace{\leftmark}}}%
     \fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}\quad\texttt{\thezettel}}}
   {\fancyhead[RE,RO]{\smallcaps{\newlinetospace{\leftmark}}\quad\texttt{\thezettel}}%
-  \fancyfoot[C]{\ifthenelse{\value{page}=1}{}{\thepage}}}
+    \fancyfoot[C]{\ifthenelse{\value{page}=1}{}{\thepage}}}
+  }
 \renewcommand{\chaptermark}[1]{\markboth{\MakeLowercase{%
   \ifnum\c@secnumdepth > \m@ne \@chapapp\ \protect\resizebox{!}{1.15ex}{\thechapter}.\ \fi #1}}{}}
 
