@@ -271,11 +271,11 @@ def parse_zettel(zettel_id):
                     line = line[:m.end()] + generate_marginnote_reference(metadata) + line[(m.end()):]
                 else:
                     line = line + generate_marginnote_reference(metadata) # probably nasty
-            
         if got_content:
             line = parse_body_chunk(line)
             data.append(line)
 
+    data.append("\label{%s-last}" % str(zettel_id))
     return data
 
 useroptions, theargs = getopt.getopt(sys.argv[1:], 's', [ 'stand-alone' ])
